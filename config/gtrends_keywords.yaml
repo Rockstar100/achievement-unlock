@@ -1,0 +1,73 @@
+# Google Trends — Dog & Cat keywords (India only, geo=IN)
+# Keep this list focused: Google rate-limits aggressive scraping.
+
+geo: IN
+
+timeframe:
+  interest_over_time: "now 7-d"
+  related_queries: "now 7-d"
+
+categories:
+  dog_food:
+    display_name: Dog Food
+    keywords:
+      - dog food
+      - puppy food
+      - pedigree dog food
+      - royal canin dog
+      - drools dog food
+
+  cat_food:
+    display_name: Cat Food
+    keywords:
+      - cat food
+      - kitten food
+      - whiskas cat food
+      - royal canin cat
+
+  dog_toys:
+    display_name: Dog Toys
+    keywords:
+      - dog toys
+      - kong dog toy
+
+  cat_toys:
+    display_name: Cat Toys
+    keywords:
+      - cat toys
+      - catnip toy
+
+  grooming:
+    display_name: Pet Grooming
+    keywords:
+      - dog shampoo
+      - cat shampoo
+
+  beds_accessories:
+    display_name: Beds & Accessories
+    keywords:
+      - dog bed
+      - cat bed
+
+  health_wellness:
+    display_name: Health & Wellness
+    keywords:
+      - flea treatment for dogs
+      - dog supplements
+
+  collars_leashes:
+    display_name: Collars & Leashes
+    keywords:
+      - dog collar
+      - dog leash
+      - dog harness
+
+  training:
+    display_name: Training & Behavior
+    keywords:
+      - puppy training pads
+      - dog training treats
+
+general_keywords:
+  - pet food india
+  - buy dog food online

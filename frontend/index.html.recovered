@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pet Trends — Data Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="loading" class="loading-screen">
+    <div class="loader"></div>
+    <p>Loading pipeline data…</p>
+    <p id="load-status" class="load-status"></p>
+  </div>
+
+  <div class="app" id="app" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">🐾</span>
+        <div>
+          <div class="brand-title">Pet Trends</div>
+          <div class="brand-sub">India · dog &amp; cat</div>
+        </div>
+      </div>
+
+      <nav class="nav" id="main-nav">
+        <button data-tab="overview" class="nav-item"><span class="nav-icon">◉</span> Overview</button>
+        <button data-tab="gold" class="nav-item active"><span class="nav-icon">★</span> Gold <span class="nav-count" id="nav-gold-count">—</span></button>
+        <button data-tab="facts" class="nav-item"><span class="nav-icon">◈</span> Facts <span class="nav-count" id="nav-facts-count">—</span></button>
+        <button data-tab="amazon" class="nav-item"><span class="nav-icon">A</span> Amazon <span class="nav-count" id="nav-amazon-count">—</span></button>
+        <button data-tab="flipkart" class="nav-item"><span class="nav-icon">F</span> Flipkart <span class="nav-count" id="nav-flipkart-count">—</span></button>
+        <button data-tab="gtrends" class="nav-item"><span class="nav-icon">G</span> GTrends <span class="nav-count" id="nav-gtrends-count">—</span></button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="reload-btn" class="btn btn-primary btn-block">↻ Reload data</button>
+        <p class="sidebar-note" id="sidebar-updated">—</p>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title" id="page-title">Gold products</div>
+          <p class="topbar-sub" id="page-subtitle"></p>
+        </div>
+        <div class="stats" id="header-stats"></div>
+      </header>
+
+      <main class="content">
+        <section id="panel-overview" class="panel"></section>
+
+        <section id="panel-gold" class="panel active">
+          <div class="toolbar card-surface">
+            <div class="toolbar-row">
+              <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input id="gold-search" type="search" placeholder="Search title, brand, ASIN, signals…" />
+              </div>
+              <div class="toolbar-actions">
+                <div class="view-toggle" role="group">
+                  <button type="button" class="view-btn active" id="view-cards">Cards</button>
+                  <button type="button" class="view-btn" id="view-table">Table</button>
+                </div>
+                <select id="gold-pagesize" class="select select-sm" aria-label="Page size">
+                  <option value="24">24 / page</option>
+                  <option value="48" selected>48 / page</option>
+                  <option value="96">96 / page</option>
+                </select>
+              </div>
+            </div>
+            <div class="toolbar-row filters-row">
+              <select id="gold-category" class="select select-sm" aria-label="Category"><option value="">Category</option></select>
+              <select id="gold-source" class="select select-sm" aria-label="Source">
+                <option value="">Source</option>
+                <option value="amazon">Amazon</option>
+                <option value="flipkart">Flipkart</option>
+                <option value="gtrends">GTrends</option>
+              </select>
+              <select id="gold-tier" class="select select-sm" aria-label="Tier">
+                <option value="">Tier</option>
+                <option value="breakout">Breakout</option>
+                <option value="rising">Rising</option>
+                <option value="stable">Stable</option>
+                <option value="declining">Declining</option>
+              </select>
+              <select id="gold-action" class="select select-sm" aria-label="Action">
+                <option value="">Action</option>
+                <option value="BUY_TEST">Buy test</option>
+                <option value="WATCHLIST">Watchlist</option>
+                <option value="MONITOR">Monitor</option>
+                <option value="IGNORE">Ignore</option>
+                <option value="REVIEW_MANUALLY">Review</option>
+              </select>
+              <select id="gold-sort" class="select select-sm" aria-label="Sort">
+                <option value="score-desc">Score ↓</option>
+                <option value="score-asc">Score ↑</option>
+                <option value="confidence-desc">Confidence ↓</option>
+                <option value="reviews-desc">Reviews ↓</option>
+                <option value="title-asc">Title A–Z</option>
+              </select>
+              <button type="button" id="gold-reset" class="btn btn-ghost btn-sm">Clear filters</button>
+            </div>
+            <div class="toolbar-row chips-row" id="gold-quick-filters"></div>
+            <div class="toolbar-row meta-row">
+              <div id="gold-active-filters" class="active-filters"></div>
+              <span id="gold-count" class="result-count"></span>
+            </div>
+          </div>
+          <div id="gold-content"></div>
+          <div class="pagination-bar" id="gold-pagination"></div>
+        </section>
+
+        <section id="panel-amazon" class="panel">
+          <div class="toolbar card-surface toolbar-compact">
+            <div class="search-wrap"><span class="search-icon">⌕</span><input id="amazon-search" type="search" placeholder="Search Amazon bronze…" /></div>
+            <select class="select select-sm bronze-pagesize" data-name="amazon"><option value="48" selected>48 / page</option><option value="96">96</option></select>
+            <span id="amazon-count" class="result-count"></span>
+          </div>
+          <div id="amazon-content"></div>
+          <div class="pagination-bar" id="amazon-pagination"></div>
+        </section>
+
+        <section id="panel-flipkart" class="panel">
+          <div class="toolbar card-surface toolbar-compact">
+            <div class="search-wrap"><span class="search-icon">⌕</span><input id="flipkart-search" type="search" placeholder="Search Flipkart bronze…" /></div>
+            <select class="select select-sm bronze-pagesize" data-name="flipkart"><option value="48" selected>48 / page</option><option value="96">96</option></select>
+            <span id="flipkart-count" class="result-count"></span>
+          </div>
+          <div id="flipkart-content"></div>
+          <div class="pagination-bar" id="flipkart-pagination"></div>
+        </section>
+
+        <section id="panel-gtrends" class="panel">
+          <div class="toolbar card-surface toolbar-compact">
+            <div class="search-wrap"><span class="search-icon">⌕</span><input id="gtrends-search" type="search" placeholder="Search GTrends bronze…" /></div>
+            <select class="select select-sm bronze-pagesize" data-name="gtrends"><option value="48" selected>48 / page</option><option value="96">96</option></select>
+            <span id="gtrends-count" class="result-count"></span>
+          </div>
+          <div id="gtrends-content"></div>
+          <div class="pagination-bar" id="gtrends-pagination"></div>
+        </section>
+
+        <section id="panel-facts" class="panel">
+          <div class="toolbar card-surface toolbar-compact">
+            <div class="search-wrap"><span class="search-icon">⌕</span><input id="facts-search" type="search" placeholder="Search daily facts…" /></div>
+            <select id="facts-action" class="select select-sm" aria-label="Action">
+              <option value="">Action</option>
+              <option value="WATCHLIST">Watchlist</option>
+              <option value="MONITOR">Monitor</option>
+              <option value="BUY_TEST">Buy test</option>
+            </select>
+            <select id="facts-pagesize" class="select select-sm"><option value="48" selected>48 / page</option><option value="96">96</option></select>
+            <span id="facts-count" class="result-count"></span>
+          </div>
+          <div id="facts-content"></div>
+          <div class="pagination-bar" id="facts-pagination"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

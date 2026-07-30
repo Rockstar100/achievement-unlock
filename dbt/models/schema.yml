@@ -1,0 +1,292 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: default
+    schema: default
+    tables:
+      - name: ecom_trends_amazon
+        identifier: bronze_ecom_trends_amazon
+        description: "Raw Amazon Best Sellers and Movers & Shakers data for pet products"
+        columns:
+          - name: ingest_date
+            description: "Date when data was ingested"
+          - name: ingest_ts
+            description: "Timestamp when data was ingested"
+          - name: marketplace
+            description: "Marketplace (e.g., 'in' for India)"
+          - name: category
+            description: "Top-level category (e.g., 'Pet Supplies')"
+          - name: subcategory
+            description: "Sub-category (e.g., 'Dog Food')"
+          - name: rank
+            description: "Current rank in category/subcategory"
+          - name: rank_prev_day
+            description: "Previous day's rank"
+          - name: asin
+            description: "Amazon Standard Identification Number"
+          - name: product_title
+            description: "Product title as listed on Amazon"
+          - name: brand
+            description: "Brand name extracted from title or product details"
+          - name: price_inr
+            description: "Current price in Indian Rupees"
+          - name: mrp_inr
+            description: "Maximum Retail Price in Indian Rupees"
+          - name: discount_pct
+            description: "Discount percentage"
+          - name: rating
+            description: "Average rating (out of 5)"
+          - name: review_count
+            description: "Number of customer reviews"
+          - name: is_mover_shaker
+            description: "Flag indicating if product is in Movers & Shakers list"
+          - name: rank_delta
+            description: "Change in rank from previous day"
+          - name: product_url
+            description: "URL to product page on Amazon"
+          - name: image_url
+            description: "URL to product image"
+          - name: _raw_json
+            description: "Raw JSON response from scraper/API"
+
+      - name: ecom_trends_gtrends
+        identifier: bronze_ecom_trends_gtrends
+        description: "Raw Google Trends data for pet-related search terms"
+        columns:
+          - name: ingest_date
+            description: "Date when data was ingested"
+          - name: ingest_ts
+            description: "Timestamp when data was ingested"
+          - name: category
+            description: "Product category (e.g., 'dog_food')"
+          - name: keyword
+            description: "Specific search term queried"
+          - name: interest_score
+            description: "Normalized interest score (0-100)"
+          - name: interest_score_prev_day
+            description: "Previous day's interest score"
+          - name: interest_delta
+            description: "Change in interest score from previous day"
+          - name: is_rising
+            description: "Flag indicating if term is trending upward"
+          - name: rising_query
+            description: "Related rising query (if applicable)"
+          - name: rising_score
+            description: "Growth score for related query (percentage increase)"
+          - name: related_topics_json
+            description: "JSON blob containing related topics data"
+          - name: _raw_json
+            description: "Raw JSON response from pytrends"
+
+      - name: ecom_trends_flipkart
+        identifier: bronze_ecom_trends_flipkart
+        description: "Raw Flipkart product ranking and pricing data"
+        columns:
+          - name: ingest_date
+            description: "Date when data was ingested"
+          - name: ingest_ts
+            description: "Timestamp when data was ingested"
+          - name: marketplace
+            description: "Marketplace (always 'in' for Flipkart India)"
+          - name: search_term
+            description: "Search term used to find products"
+          - name: category
+            description: "Inferred category from search term"
+          - name: rank
+            description: "Position in search results (1-20)"
+          - name: rank_prev_day
+            description: "Previous day's position"
+          - name: rank_delta
+            description: "Change in position from previous day"
+          - name: product_id
+            description: "Flipkart Product ID"
+          - name: product_title
+            description: "Product title as listed on Flipkart"
+          - name: brand
+            description: "Brand name"
+          - name: price_inr
+            description: "Current price in Indian Rupees"
+          - name: mrp_inr
+            description: "Maximum Retail Price in Indian Rupees"
+          - name: discount_pct
+            description: "Discount percentage"
+          - name: rating
+            description: "Average rating (out of 5)"
+          - name: rating_prev_day
+            description: "Previous day's rating"
+          - name: rating_delta
+            description: "Change in rating from previous day"
+          - name: review_count
+            description: "Number of customer reviews"
+          - name: review_count_prev_day
+            description: "Previous day's review count"
+          - name: seller
+            description: "Seller name"
+          - name: availability
+            description: "Stock availability status"
+          - name: product_url
+            description: "URL to product page on Flipkart"
+          - name: image_url
+            description: "URL to product image"
+          - name: _raw_json
+            description: "Raw JSON response from scraper/API"
+
+models:
+  - name: stg_amazon_bestsellers
+    description: "Staging model for Amazon Best Sellers data"
+    columns:
+      - name: product_id
+        description: "Unique product identifier (ASIN)"
+        tests:
+          - not_null
+          - unique
+      - name: ingest_date
+        description: "Date of data ingestion"
+        tests:
+          - not_null
+      - name: rank
+        description: "Current product rank"
+        tests:
+          - not_null
+          - accepted_range:
+              min: 1
+              max: 10000
+
+  - name: stg_gtrends
+    description: "Staging model for Google Trends data"
+    columns:
+      - name: ingest_date
+        description: "Date of data ingestion"
+        tests:
+          - not_null
+      - name: category
+        description: "Product category"
+        tests:
+          - not_null
+      - name: keyword
+        description: "Search keyword"
+        tests:
+          - not_null
+      - name: interest_score
+        description: "Normalized interest score (0-100)"
+        tests:
+          - not_null
+          - accepted_range:
+              min: 0
+              max: 100
+
+  - name: stg_flipkart_bestsellers
+    description: "Staging model for Flipkart product data"
+    columns:
+      - name: product_id
+        description: "Unique product identifier (Flipkart PID)"
+        tests:
+          - not_null
+          - unique
+      - name: ingest_date
+        description: "Date of data ingestion"
+        tests:
+          - not_null
+      - name: rank
+        description: "Position in search results"
+        tests:
+          - not_null
+          - accepted_range:
+              min: 1
+              max: 20
+
+  - name: int_amazon_normalized
+    description: "Intermediate model for cleaned and standardized Amazon data"
+    columns:
+      - name: product_id
+        description: "Unique product identifier (ASIN)"
+        tests:
+          - not_null
+          - unique
+      - name: normalized_brand
+        description: "Standardized brand name"
+        tests:
+          - not_null
+
+  - name: int_gtrends_normalized
+    description: "Intermediate model for aggregated Google Trends data"
+    columns:
+      - name: ingest_date
+        description: "Date of data aggregation"
+        tests:
+          - not_null
+      - name: category
+        description: "Product category"
+        tests:
+          - not_null
+      - name: gtrends_category_interest
+        description: "Aggregated interest score for category"
+        tests:
+          - not_null
+          - accepted_range:
+              min: 0
+              max: 100
+
+  - name: int_flipkart_normalized
+    description: "Intermediate model for cleaned and standardized Flipkart data"
+    columns:
+      - name: product_id
+        description: "Unique product identifier (Flipkart PID)"
+        tests:
+          - not_null
+          - unique
+      - name: ingest_date
+        description: "Date of data ingestion"
+        tests:
+          - not_null
+      - name: normalized_brand
+        description: "Standardized brand name"
+        tests:
+          - not_null
+
+  - name: gold_dim_trending_pet_products
+    description: "Final dimension table containing trending pet products with composite scores"
+    columns:
+      - name: product_id
+        description: "Unique product identifier (hash of source IDs)"
+        tests:
+          - not_null
+          - unique
+      - name: canonical_title
+        description: "Standardized product title"
+        tests:
+          - not_null
+      - name: normalized_brand
+        description: "Standardized brand name"
+        tests:
+          - not_null
+      - name: category
+        description: "Product category"
+        tests:
+          - not_null
+      - name: subcategory
+        description: "Product subcategory"
+      - name: trend_score
+        description: "Composite trend score (0-100)"
+        tests:
+          - not_null
+          - accepted_range:
+              min: 0
+              max: 100
+      - name: trend_tier
+        description: "Trend category based on score"
+        tests:
+          - not_null
+          - accepted_values:
+            - 'breakout'
+            - 'rising'
+            - 'stable'
+            - 'declining'
+      - name: rank_position
+        description: "Rank within category by trend score"
+        tests:
+          - not_null
+          - relationship:
+              to: ref('gold_dim_trending_pet_products')
+              field: category

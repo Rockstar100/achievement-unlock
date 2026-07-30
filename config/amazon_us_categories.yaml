@@ -1,0 +1,58 @@
+# Amazon.com (US) — Dog & Cat supplies bestsellers
+# GLOBAL SUPPLEMENTARY SOURCE — not part of the India-native pipeline.
+# Used only as an early-signal input, mapped back to India categories in
+# transform/global_signals.py. Never blended directly into the India
+# trend_score.
+#
+# Node IDs resolved from live amazon.com/gp/bestsellers/pet-supplies on
+# 2026-07-07 (US uses /Best-Sellers/zgbs/pet-supplies/<id>, not
+# /gp/bestsellers/pet-supplies/<id> like amazon.in).
+#
+# NOTE: amazon.com bestseller list pages do not display price at all
+# (Amazon removed it from this page type) — price_usd will be 0/empty
+# for this source. Rank, rating, and review count are real.
+
+defaults:
+  max_items_per_category: 30
+  marketplace: us
+
+categories:
+  dog_food:
+    display_name: Dog Food
+    bestsellers_path: /Best-Sellers/zgbs/pet-supplies/2975359011
+
+  cat_food:
+    display_name: Cat Food
+    bestsellers_path: /Best-Sellers/zgbs/pet-supplies/2975265011
+
+  dog_toys:
+    display_name: Dog Toys
+    bestsellers_path: /Best-Sellers/zgbs/pet-supplies/2975413011
+
+  cat_toys:
+    display_name: Cat Toys
+    bestsellers_path: /Best-Sellers/zgbs/pet-supplies/2975303011
+
+  grooming:
+    display_name: Pet Grooming
+    bestsellers_path:
+      - /Best-Sellers/zgbs/pet-supplies/2975362011  # Dog Grooming Supplies
+      - /Best-Sellers/zgbs/pet-supplies/2975268011  # Cat Grooming Supplies
+
+  beds_accessories:
+    display_name: Beds & Accessories
+    bestsellers_path:
+      - /Best-Sellers/zgbs/pet-supplies/2975326011  # Dog Beds & Furniture
+      - /Best-Sellers/zgbs/pet-supplies/2975243011  # Cat Beds & Furniture
+
+  health_wellness:
+    display_name: Health & Wellness
+    bestsellers_path:
+      - /Best-Sellers/zgbs/pet-supplies/2975377011  # Dog Health Supplies
+      - /Best-Sellers/zgbs/pet-supplies/2975276011  # Cat Health Supplies
+
+  collars_leashes:
+    display_name: Collars, Leashes & Harnesses
+    bestsellers_path:
+      - /Best-Sellers/zgbs/pet-supplies/2975339011  # Dog Collars, Harnesses & Leashes
+      - /Best-Sellers/zgbs/pet-supplies/2975252011  # Cat Collars, Harnesses & Leashes

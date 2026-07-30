@@ -1,0 +1,45 @@
+﻿snapshot_date,source,query,geo,mapped_species,mapped_category,canonical_product_id,interest_index,related_query,rising_value,breakout_flag,confidence
+2026-07-07,google_trends,dog food,IN,,dog_food,,54.0,nan,0.0,False,0.9
+2026-07-07,google_trends,waggies dog food,IN,,dog_food,,0.0,waggies dog food,16500.0,True,0.9
+2026-07-07,google_trends,taste of the wild dog food,IN,,dog_food,,0.0,taste of the wild dog food,180.0,True,0.9
+2026-07-07,google_trends,henlo dog food,IN,,dog_food,,0.0,henlo dog food,140.0,True,0.9
+2026-07-07,google_trends,lets bite dog food,IN,,dog_food,,0.0,lets bite dog food,140.0,True,0.9
+2026-07-07,google_trends,royal kennel dog food,IN,,dog_food,,0.0,royal kennel dog food,110.0,True,0.9
+2026-07-07,google_trends,purepet dog food review,IN,,dog_food,,0.0,purepet dog food review,100.0,True,0.9
+2026-07-07,google_trends,dog food online 20kg,IN,,dog_food,,0.0,dog food online 20kg,70.0,False,0.9
+2026-07-07,google_trends,puppy food,IN,,dog_food,,29.0,nan,0.0,False,0.9
+2026-07-07,google_trends,pedigree dog food,IN,,dog_food,,2.0,nan,0.0,False,0.9
+2026-07-07,google_trends,royal canin dog,IN,,dog_food,,4.0,nan,0.0,False,0.9
+2026-07-07,google_trends,drools dog food,IN,,dog_food,,1.0,nan,0.0,False,0.9
+2026-07-07,google_trends,cat food,IN,,cat_food,,49.0,nan,0.0,False,0.9
+2026-07-07,google_trends,me-o cat food,IN,,cat_food,,0.0,me-o cat food,90.0,False,0.9
+2026-07-07,google_trends,bellota cat food,IN,,cat_food,,0.0,bellota cat food,80.0,False,0.9
+2026-07-07,google_trends,lets bite cat food,IN,,cat_food,,0.0,lets bite cat food,70.0,False,0.9
+2026-07-07,google_trends,applaws cat food,IN,,cat_food,,0.0,applaws cat food,70.0,False,0.9
+2026-07-07,google_trends,clumsy bumsy cat food,IN,,cat_food,,0.0,clumsy bumsy cat food,60.0,False,0.9
+2026-07-07,google_trends,cat litter sand,IN,,cat_food,,0.0,cat litter sand,60.0,False,0.9
+2026-07-07,google_trends,apro cat food,IN,,cat_food,,0.0,apro cat food,50.0,False,0.9
+2026-07-07,google_trends,kitekat cat food,IN,,cat_food,,0.0,kitekat cat food,50.0,False,0.9
+2026-07-07,google_trends,kitten food,IN,,cat_food,,12.0,nan,0.0,False,0.9
+2026-07-07,google_trends,whiskas cat food,IN,,cat_food,,2.0,nan,0.0,False,0.9
+2026-07-07,google_trends,royal canin cat,IN,,cat_food,,4.0,nan,0.0,False,0.9
+2026-07-07,google_trends,dog toys,IN,,dog_toys,,5.0,nan,0.0,False,0.9
+2026-07-07,google_trends,squeaky dog toys,IN,,dog_toys,,0.0,squeaky dog toys,100.0,True,0.9
+2026-07-07,google_trends,kong dog toy,IN,,dog_toys,,1.0,nan,0.0,False,0.9
+2026-07-07,google_trends,cat toys,IN,,cat_toys,,4.0,nan,0.0,False,0.9
+2026-07-07,google_trends,cat toys amazon,IN,,cat_toys,,0.0,cat toys amazon,90.0,False,0.9
+2026-07-07,google_trends,dog shampoo,IN,,grooming,,22.0,nan,0.0,False,0.9
+2026-07-07,google_trends,dog bed,IN,,beds_accessories,,29.0,nan,0.0,False,0.9
+2026-07-07,google_trends,cat bed,IN,,beds_accessories,,12.0,nan,0.0,False,0.9
+2026-07-07,google_trends,flea treatment for dogs,IN,,health_wellness,,0.0,nan,0.0,False,0.9
+2026-07-07,google_trends,dog supplements,IN,,health_wellness,,1.0,nan,0.0,False,0.9
+2026-07-07,google_trends,dog collar,IN,,collars_leashes,,11.0,nan,0.0,False,0.9
+2026-07-07,google_trends,dog collar with name tag,IN,,collars_leashes,,0.0,dog collar with name tag,130.0,True,0.9
+2026-07-07,google_trends,dog collar meaning,IN,,collars_leashes,,0.0,dog collar meaning,80.0,False,0.9
+2026-07-07,google_trends,dog training collar,IN,,collars_leashes,,0.0,dog training collar,80.0,False,0.9
+2026-07-07,google_trends,dog leash,IN,,collars_leashes,,3.0,nan,0.0,False,0.9
+2026-07-07,google_trends,dog harness,IN,,collars_leashes,,1.0,nan,0.0,False,0.9
+2026-07-07,google_trends,puppy training pads,IN,,training,,1.0,nan,0.0,False,0.9
+2026-07-07,google_trends,dog training treats,IN,,training,,0.0,nan,0.0,False,0.9
+2026-07-07,google_trends,buy dog food online,IN,,general,,1.0,nan,0.0,False,0.9
+2026-07-07,google_trends,cat shampoo,IN,,grooming,,5.0,nan,0.0,False,0.9

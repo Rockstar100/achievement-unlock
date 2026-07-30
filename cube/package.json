@@ -1,0 +1,12 @@
+{
+  "name": "pet_trend_intel",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cubejs-server"
+  },
+  "dependencies": {
+    "@cubejs-backend/clickhouse-driver": "^1.0.0",
+    "@cubejs-backend/server": "^1.0.0"
+  }
+}

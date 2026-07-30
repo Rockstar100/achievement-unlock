@@ -1,0 +1,83 @@
+# Flipkart — Dog & Cat product search terms (India only)
+
+search_settings:
+  results_per_page: 20
+  sort_by: relevance
+
+categories:
+  dog_food:
+    display_name: Dog Food
+    search_terms:
+      - dog food
+      - puppy food
+      - dry dog food
+      - royal canin dog food
+      - pedigree dog food
+      - drools dog food
+
+  cat_food:
+    display_name: Cat Food
+    search_terms:
+      - cat food
+      - kitten food
+      - whiskas cat food
+      - royal canin cat food
+      - meo cat food
+
+  dog_toys:
+    display_name: Dog Toys
+    search_terms:
+      - dog toys
+      - chew toy for dogs
+      - kong dog toy
+      - interactive dog toy
+
+  cat_toys:
+    display_name: Cat Toys
+    search_terms:
+      - cat toys
+      - catnip toy
+      - interactive cat toy
+      - scratching post
+
+  grooming:
+    display_name: Pet Grooming
+    search_terms:
+      - dog shampoo
+      - cat shampoo
+      - dog brush
+      - nail clipper for dogs
+
+  beds_accessories:
+    display_name: Beds & Accessories
+    search_terms:
+      - dog bed
+      - cat bed
+      - dog crate
+      - pet water fountain for dogs
+
+  health_wellness:
+    display_name: Health & Wellness
+    search_terms:
+      - dog supplements
+      - cat supplements
+      - flea tick medicine for dogs
+      - joint supplement for dogs
+      - deworming tablet for dogs
+
+  collars_leashes:
+    display_name: Collars & Leashes
+    search_terms:
+      - dog collar
+      - cat collar
+      - dog leash
+      - dog harness
+      - retractable dog leash
+
+  training:
+    display_name: Training & Behavior
+    search_terms:
+      - puppy training pads
+      - dog training treats
+      - clicker dog training
+      - anti bark collar

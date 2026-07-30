@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pet Trend Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="loading" class="loading-screen">
+    <div class="loader"></div>
+    <p>Loading trend intelligence…</p>
+  </div>
+
+  <div class="app" id="app" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">🐾</span>
+        <div>
+          <div class="brand-title">Pet Trend Intelligence</div>
+          <div class="brand-sub">Dogs &amp; cats only</div>
+        </div>
+      </div>
+
+      <nav class="nav" id="main-nav">
+        <button type="button" data-tab="india" class="nav-item active">
+          <span class="nav-icon">🇮🇳</span> India market
+          <span class="nav-count" id="nav-india-count">—</span>
+        </button>
+        <button type="button" data-tab="us" class="nav-item">
+          <span class="nav-icon">🇺🇸</span> US market
+          <span class="nav-count" id="nav-us-count">—</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" id="reload-btn" class="btn btn-primary btn-block">↻ Refresh</button>
+        <p class="sidebar-note" id="sidebar-updated">—</p>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 class="topbar-title" id="page-title">India market</h1>
+          <p class="topbar-sub" id="page-subtitle"></p>
+        </div>
+        <div class="stats" id="header-stats"></div>
+      </header>
+
+      <main class="content">
+        <!-- India: Amazon.in + Flipkart + Google Trends -->
+        <section id="panel-india" class="panel active">
+          <p class="panel-intro">Trending pet products in India — ranked from Amazon.in, Flipkart and Google Search signals.</p>
+          <div class="toolbar card-surface">
+            <div class="toolbar-row">
+              <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input id="gold-search" type="search" placeholder="Search products, brands, categories…" autocomplete="off" />
+              </div>
+              <div class="toolbar-actions">
+                <div class="view-toggle" role="group">
+                  <button type="button" class="view-btn active" id="view-cards">Cards</button>
+                  <button type="button" class="view-btn" id="view-table">Table</button>
+                </div>
+                <select id="gold-pagesize" class="select select-sm" aria-label="Page size">
+                  <option value="24">24 / page</option>
+                  <option value="48" selected>48 / page</option>
+                  <option value="96">96 / page</option>
+                </select>
+              </div>
+            </div>
+            <div class="toolbar-row filters-row">
+              <div id="gold-category-ms" class="multi-select" data-placeholder="All categories">
+                <button type="button" class="multi-select-trigger select select-sm" aria-haspopup="listbox">
+                  <span class="multi-select-label">All categories</span><span class="multi-select-caret">▾</span>
+                </button>
+                <div class="multi-select-panel" hidden>
+                  <input type="search" class="multi-select-search" placeholder="Search categories…" autocomplete="off" />
+                  <div class="multi-select-actions">
+                    <button type="button" data-action="all">Select all</button>
+                    <button type="button" data-action="none">Clear</button>
+                  </div>
+                  <div class="multi-select-options" role="listbox"></div>
+                </div>
+              </div>
+              <select id="gold-species" class="select select-sm" aria-label="Species">
+                <option value="">All pets</option>
+                <option value="dog">Dogs</option>
+                <option value="cat">Cats</option>
+                <option value="both">Dogs &amp; cats</option>
+              </select>
+              <select id="gold-source" class="select select-sm" aria-label="Channel">
+                <option value="">All channels</option>
+                <option value="amazon">Amazon India</option>
+                <option value="flipkart">Flipkart</option>
+                <option value="both_market">Both marketplaces</option>
+                <option value="gt_signal">Google Trends signal</option>
+              </select>
+              <select id="gold-tier" class="select select-sm" aria-label="Momentum">
+                <option value="">All momentum</option>
+                <option value="breakout">Hot</option>
+                <option value="rising">Growing</option>
+                <option value="stable">Steady</option>
+                <option value="declining">Cooling</option>
+              </select>
+              <select id="gold-action" class="select select-sm" aria-label="Recommendation">
+                <option value="">All recommendations</option>
+                <option value="BUY_TEST">Priority buy</option>
+                <option value="WATCHLIST">Top pick</option>
+                <option value="MONITOR">On radar</option>
+                <option value="IGNORE">Low priority</option>
+              </select>
+              <input id="gold-min-score" class="input-sm" type="number" min="0" max="100" step="1" placeholder="Min score" aria-label="Minimum score" />
+              <input id="gold-min-rating" class="input-sm" type="number" min="0" max="5" step="0.1" placeholder="Min ★" aria-label="Minimum rating" />
+              <input id="gold-max-price" class="input-sm" type="number" min="0" step="50" placeholder="Max ₹" aria-label="Maximum price INR" />
+              <select id="gold-sort" class="select select-sm" aria-label="Sort">
+                <option value="score-desc">Highest score</option>
+                <option value="score-asc">Lowest score</option>
+                <option value="confidence-desc">Highest confidence</option>
+                <option value="reviews-desc">Most reviews</option>
+                <option value="gtrends-desc">GT interest</option>
+                <option value="price-asc">Lowest price</option>
+                <option value="price-desc">Highest price</option>
+                <option value="title-asc">Name A–Z</option>
+              </select>
+              <button type="button" id="gold-export" class="btn btn-ghost btn-sm">Export CSV</button>
+              <button type="button" id="gold-reset" class="btn btn-ghost btn-sm">Reset</button>
+            </div>
+            <div class="toolbar-row chips-row" id="gold-quick-filters"></div>
+            <div class="toolbar-row meta-row">
+              <div id="gold-active-filters" class="active-filters"></div>
+              <span id="gold-count" class="result-count"></span>
+            </div>
+          </div>
+          <div id="gold-content"></div>
+          <div class="pagination-bar" id="gold-pagination"></div>
+        </section>
+
+        <!-- US: Amazon US + TikTok Shop -->
+        <section id="panel-us" class="panel">
+          <p class="panel-intro">US market bestsellers from Amazon.com — early signals for what may trend in India next. Not blended into India scores.</p>
+          <div class="toolbar card-surface">
+            <div class="toolbar-row">
+              <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input id="global-search" type="search" placeholder="Search US products, brands, categories…" autocomplete="off" />
+              </div>
+              <div class="toolbar-actions">
+                <div class="view-toggle" role="group">
+                  <button type="button" class="view-btn active" id="global-view-cards">Cards</button>
+                  <button type="button" class="view-btn" id="global-view-table">Table</button>
+                </div>
+                <select id="global-pagesize" class="select select-sm" aria-label="Page size">
+                  <option value="24">24 / page</option>
+                  <option value="48" selected>48 / page</option>
+                  <option value="96">96 / page</option>
+                </select>
+              </div>
+            </div>
+            <div class="toolbar-row filters-row">
+              <div id="global-category-ms" class="multi-select" data-placeholder="All categories">
+                <button type="button" class="multi-select-trigger select select-sm" aria-haspopup="listbox">
+                  <span class="multi-select-label">All categories</span><span class="multi-select-caret">▾</span>
+                </button>
+                <div class="multi-select-panel" hidden>
+                  <input type="search" class="multi-select-search" placeholder="Search categories…" autocomplete="off" />
+                  <div class="multi-select-actions">
+                    <button type="button" data-action="all">Select all</button>
+                    <button type="button" data-action="none">Clear</button>
+                  </div>
+                  <div class="multi-select-options" role="listbox"></div>
+                </div>
+              </div>
+              <div id="global-bucket-ms" class="multi-select" data-placeholder="All India fit">
+                <button type="button" class="multi-select-trigger select select-sm" aria-haspopup="listbox">
+                  <span class="multi-select-label">All India fit</span><span class="multi-select-caret">▾</span>
+                </button>
+                <div class="multi-select-panel" hidden>
+                  <div class="multi-select-actions">
+                    <button type="button" data-action="all">Select all</button>
+                    <button type="button" data-action="none">Clear</button>
+                  </div>
+                  <div class="multi-select-options" role="listbox">
+                    <label class="multi-select-option"><input type="checkbox" value="already_available_in_india"><span>Already in India</span></label>
+                    <label class="multi-select-option"><input type="checkbox" value="not_yet_available_in_india"><span>Not yet in India</span></label>
+                    <label class="multi-select-option"><input type="checkbox" value="watch_only"><span>Watch only</span></label>
+                  </div>
+                </div>
+              </div>
+              <select id="global-species" class="select select-sm" aria-label="Species">
+                <option value="">All pets</option>
+                <option value="dog">Dogs</option>
+                <option value="cat">Cats</option>
+                <option value="both">Dogs &amp; cats</option>
+              </select>
+              <select id="global-source" class="select select-sm" aria-label="Source">
+                <option value="">All sources</option>
+                <option value="amazon_us">Amazon US</option>
+                <option value="tiktok_shop_us">TikTok Shop US</option>
+              </select>
+              <input id="global-min-score" class="input-sm" type="number" min="0" max="100" step="1" placeholder="Min score" aria-label="Minimum score" />
+              <input id="global-min-rating" class="input-sm" type="number" min="0" max="5" step="0.1" placeholder="Min ★" aria-label="Minimum rating" />
+              <input id="global-max-price" class="input-sm" type="number" min="0" step="1" placeholder="Max $" aria-label="Maximum price USD" />
+              <select id="global-sort" class="select select-sm" aria-label="Sort">
+                <option value="score-desc">Highest score</option>
+                <option value="score-asc">Lowest score</option>
+                <option value="reviews-desc">Most reviews</option>
+                <option value="rating-desc">Highest rating</option>
+                <option value="price-asc">Lowest price</option>
+                <option value="price-desc">Highest price</option>
+                <option value="title-asc">Name A–Z</option>
+              </select>
+              <button type="button" id="global-export" class="btn btn-ghost btn-sm">Export CSV</button>
+              <button type="button" id="global-reset" class="btn btn-ghost btn-sm">Reset</button>
+            </div>
+            <div class="toolbar-row chips-row" id="global-quick-filters"></div>
+            <div class="toolbar-row meta-row">
+              <div id="global-active-filters" class="active-filters"></div>
+              <span id="global-count" class="result-count"></span>
+            </div>
+          </div>
+          <div id="global-content"></div>
+          <div class="pagination-bar" id="global-pagination"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

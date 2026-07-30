@@ -1,0 +1,55 @@
+services:
+  # Open-source Flipkart search API (dog/cat pipeline primary path)
+  # GET /search/{query} → http://localhost:3000
+  flipkart-scraper:
+    build:
+      context: ./docker/flipkart-scraper
+    ports:
+      - "3001:3000"
+    environment:
+      # Host:port only (no http://) — listen on all interfaces in the container
+      DEPLOYMENT_URL: 0.0.0.0:3000
+    restart: unless-stopped
+
+  # Optional warehouse + semantic layer (not required for local CSV pipeline)
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.3
+    profiles: ["warehouse"]
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - ./sql:/docker-entrypoint-initdb.d
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8123/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cube:
+    image: cubejs/cube:latest
+    profiles: ["warehouse"]
+    ports:
+      - "4000:4000"
+    environment:
+      CUBEJS_DB_TYPE: clickhouse
+      CUBEJS_DB_HOST: clickhouse
+      CUBEJS_DB_PORT: 8123
+      CUBEJS_DB_USER: default
+      CUBEJS_DB_PASS: ""
+      CUBEJS_DB_NAME: default
+      CUBEJS_DEV_MODE: "true"
+      CUBEJS_API_SECRET: dev_secret_change_in_production
+    volumes:
+      - ./cube:/cube/conf
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+
+volumes:
+  clickhouse_data:

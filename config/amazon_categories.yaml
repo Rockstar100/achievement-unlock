@@ -1,0 +1,71 @@
+# Amazon.in — Dog & Cat supplies bestsellers (India only)
+# All paths are under /gp/bestsellers/pet-supplies/
+#
+# NOTE: Amazon's browse-node IDs drift over time (nodes get renumbered/reassigned
+# to unrelated categories). The IDs below were re-verified against live
+# amazon.in/gp/bestsellers/pet-supplies on 2026-07-07 by resolving the current
+# Dogs (4771342031) and Cats (4771341031) sub-category trees. Categories with no
+# single combined Amazon node (grooming, beds_accessories, health_wellness,
+# collars_leashes) list both the dog and cat sub-node paths, which the scraper
+# fetches and merges under the one category key.
+
+defaults:
+  max_items_per_category: 30
+  marketplace: in
+
+categories:
+  dog_food:
+    display_name: Dog Food
+    bestsellers_path: /gp/bestsellers/pet-supplies/4771395031
+    movers_path: /gp/movers-and-shakers/pet-supplies/4771395031
+
+  cat_food:
+    display_name: Cat Food
+    bestsellers_path: /gp/bestsellers/pet-supplies/4771382031
+    movers_path: /gp/movers-and-shakers/pet-supplies/4771382031
+
+  dog_toys:
+    display_name: Dog Toys
+    bestsellers_path: /gp/bestsellers/pet-supplies/4771401031
+    movers_path: /gp/movers-and-shakers/pet-supplies/4771401031
+
+  cat_toys:
+    display_name: Cat Toys
+    bestsellers_path: /gp/bestsellers/pet-supplies/4771387031
+    movers_path: /gp/movers-and-shakers/pet-supplies/4771387031
+
+  grooming:
+    display_name: Pet Grooming
+    bestsellers_path:
+      - /gp/bestsellers/pet-supplies/4771396031  # Dogs > Grooming Supplies
+      - /gp/bestsellers/pet-supplies/4771383031  # Cats > Grooming Supplies
+    movers_path:
+      - /gp/movers-and-shakers/pet-supplies/4771396031
+      - /gp/movers-and-shakers/pet-supplies/4771383031
+
+  beds_accessories:
+    display_name: Beds & Accessories
+    bestsellers_path:
+      - /gp/bestsellers/pet-supplies/4771390031  # Dogs > Beds & Furniture
+      - /gp/bestsellers/pet-supplies/4771375031  # Cats > Beds & Furniture
+    movers_path:
+      - /gp/movers-and-shakers/pet-supplies/4771390031
+      - /gp/movers-and-shakers/pet-supplies/4771375031
+
+  health_wellness:
+    display_name: Health & Wellness
+    bestsellers_path:
+      - /gp/bestsellers/pet-supplies/4771397031  # Dogs > Health Supplies
+      - /gp/bestsellers/pet-supplies/4771384031  # Cats > Health Supplies
+    movers_path:
+      - /gp/movers-and-shakers/pet-supplies/4771397031
+      - /gp/movers-and-shakers/pet-supplies/4771384031
+
+  collars_leashes:
+    display_name: Collars, Leashes & Harnesses
+    bestsellers_path:
+      - /gp/bestsellers/pet-supplies/4771392031  # Dogs > Collars, Harnesses & Leashes
+      - /gp/bestsellers/pet-supplies/4771379031  # Cats > Collars, Harnesses & Leashes
+    movers_path:
+      - /gp/movers-and-shakers/pet-supplies/4771392031
+      - /gp/movers-and-shakers/pet-supplies/4771379031

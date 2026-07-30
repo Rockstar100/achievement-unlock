@@ -1,0 +1,24 @@
+name: 'pet_trend_intel'
+version: '1.0.0'
+config-version: 2
+
+profile: 'pet_trend_intel'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+models:
+  pet_trend_intel:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table

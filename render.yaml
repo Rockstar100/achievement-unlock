@@ -1,0 +1,38 @@
+# Render Blueprint — Pet Trend Intelligence (staging / client demo)
+# One-click: https://render.com/deploy?repo=https://github.com/Tervigon-Collective/pet-trend-intelligence
+
+services:
+  - type: web
+    name: pet-trend-dashboard
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    branch: staging
+    plan: starter
+    region: oregon
+    autoDeploy: true
+    healthCheckPath: /api/health
+    disk:
+      name: pet-trend-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /data
+      - key: DASHBOARD_HOST
+        value: 0.0.0.0
+      - key: ENVIRONMENT
+        value: staging
+      - key: AMAZON_USE_PLAYWRIGHT
+        value: never
+      - key: TIMEZONE
+        value: Asia/Kolkata
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: FLIPKART_SCRAPER_URL
+        value: ""
+      - key: TIKTOK_SHOP_APP_KEY
+        sync: false
+      - key: TIKTOK_SHOP_APP_SECRET
+        sync: false
+      - key: TIKTOK_SHOP_ACCESS_TOKEN
+        sync: false

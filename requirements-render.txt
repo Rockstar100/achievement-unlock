@@ -1,0 +1,6 @@
+# Dashboard web service (Render) — minimal deps
+dagster==1.13.12
+pandas>=2.2.0
+numpy>=1.26.0
+PyYAML==6.0.1
+python-dotenv==1.0.0

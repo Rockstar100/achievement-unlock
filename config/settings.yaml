@@ -1,0 +1,31 @@
+# Configuration Settings — trending product intelligence pipeline
+
+timezone: "Asia/Kolkata"
+
+scheduling:
+  daily_ingestion_hour: 7
+  weekly_digest_day: 1
+  weekly_digest_hour: 9
+
+data_retention:
+  bronze: 30
+  silver: 90
+  gold: 365
+
+alerting:
+  scraper_success_rate_min: 0.95
+  data_freshness_max_hours: 25
+  pipeline_duration_max_minutes: 30
+
+scraping:
+  max_items_per_category: 30
+  request_delay_seconds: 2.0
+  gtrends_keywords_per_batch: 5
+
+features:
+  enable_flipkart: true
+  enable_amazon: true
+  enable_gtrends: true
+  enable_slack_alerts: true
+  enable_cubejs: false
+  enable_dagster_monitoring: true

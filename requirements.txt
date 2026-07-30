@@ -1,0 +1,36 @@
+# Core orchestration
+dagster==1.6.0
+dagster-webserver==1.6.0
+
+# Database (optional — only for ClickHouse/docker warehouse profile)
+# clickhouse-driver==0.2.6
+sqlalchemy==2.0.23
+
+# dbt (optional — gold transform uses Python/pandas instead)
+# dbt-core==1.8.0
+# dbt-clickhouse==1.8.0
+
+# Data processing
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Google Trends
+pytrends==4.9.2
+
+# HTTP & scraping
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==5.1.0
+playwright>=1.49.0
+
+# Slack
+slack-sdk==3.21.3
+
+# Configuration
+PyYAML==6.0.1
+python-dotenv==1.0.0
+
+# Development & testing
+pytest==7.4.3
+black==23.12.0
+flake8==7.0.0

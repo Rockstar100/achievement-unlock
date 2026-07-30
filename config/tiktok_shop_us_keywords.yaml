@@ -1,0 +1,57 @@
+# TikTok Shop US — pet product search keywords (global supplementary source)
+# Used by the official Partner API client when TIKTOK_SHOP_* credentials are set.
+# Not part of the India-native pipeline.
+
+defaults:
+  market: US
+  max_items_per_keyword: 20
+
+keywords:
+  dog_food:
+    display_name: Dog Food
+    search_terms:
+      - dog food viral
+      - freeze dried dog treats
+      - puppy food tiktok
+
+  cat_food:
+    display_name: Cat Food
+    search_terms:
+      - cat food tiktok shop
+      - cat treats viral
+
+  dog_toys:
+    display_name: Dog Toys
+    search_terms:
+      - dog toy viral
+      - indestructible dog toy
+
+  cat_toys:
+    display_name: Cat Toys
+    search_terms:
+      - cat toy viral
+      - interactive cat toy
+
+  grooming:
+    display_name: Pet Grooming
+    search_terms:
+      - pet grooming glove
+      - dog brush viral
+
+  beds_accessories:
+    display_name: Beds & Accessories
+    search_terms:
+      - calming pet bed
+      - cat water fountain
+
+  health_wellness:
+    display_name: Health & Wellness
+    search_terms:
+      - pet supplement tiktok
+      - cat probiotic
+
+  collars_leashes:
+    display_name: Collars & Leashes
+    search_terms:
+      - dog harness viral
+      - retractable dog leash
